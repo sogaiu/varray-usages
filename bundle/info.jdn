@@ -1,0 +1,24 @@
+{:name "varray-usages"
+ :url "https://github.com/sogaiu/varray-usages"
+ :repo "git+https://github.com/sogaiu/varray-usages.git"
+
+ :vendored
+ [{:name "some-bundle-bits"
+   :url "https://github.com/sogaiu/some-bundle-bits"
+   :tag "70409ab34b7c762118e0d31efaa4d2f01d46fecf"
+   :paths [["sbb.janet" "bundle/"]]}
+  {:name "varray"
+   :url "https://github.com/sogaiu/varray"
+   :tag "8b268bdc9052773bfa15ae15bed19d02f7f38e11"
+   :paths [["varray.c" "src/"]
+           ["varray.h" "src/"]]}
+  {:name "niche"
+   :url "https://github.com/sogaiu/niche"
+   :tag "15f5746d95932b7c939aff2ccc6aa91633f2d5e4"
+   :paths [["niche.janet" "bin/"]]}
+  {:name "spork"
+   :url "https://github.com/janet-lang/spork"
+   :tag "ff672b677b52c995f39b50c5f2114f79bd4e601c"
+   :paths [["spork/sh-dsl.janet" "bin/"]]}]}
+
+
