@@ -2,7 +2,7 @@
 
 (comment
 
-  (def va (varray/new :int32 8))
+  (def va (varray/new :uint32 8))
 
   (varray/slice va)
   # =>
@@ -40,9 +40,60 @@
   # =>
   @[8 7 6 5 4 3 2 1]
 
-  (def va-right (varray/new :int32 3 5 rs))
+  (def srgr (varray/grade sr))
 
-  (varray/slice va-right)
+  (varray/slice srgr)
+  # =>
+  @[7 6 5 4 3 2 1 0]
+
+  (varray/slice (varray/eq va-one
+                           (varray/sub sr srgr)))
+  # =>
+  @[1 1 1 1 1 1 1 1]
+
+  (def srge (varray/gather sr [0 2 4 6]))
+
+  (varray/slice srge)
+  # =>
+  @[8 6 4 2]
+
+  (def srgo (varray/gather sr [1 3 5 7]))
+
+  (varray/slice srgo)
+  # =>
+  @[7 5 3 1]
+
+  (def boxen (varray/new :uint32 8))
+
+  (varray/slice boxen)
+  # =>
+  @[0 0 0 0 0 0 0 0]
+
+  (varray/copy-bytes srgo 0 boxen 0 4)
+
+  (varray/slice boxen)
+  # =>
+  @[7 5 3 1 0 0 0 0]
+
+  (varray/copy-bytes srge 0 boxen 4 4)
+
+  (varray/slice boxen)
+  # =>
+  @[7 5 3 1 8 6 4 2]
+
+  )
+
+(comment
+
+  (def va-tail (varray/new :uint32 3 5 rs))
+
+  (varray/slice va-tail)
+  # =>
+  @[6 7 8]
+
+  (def vag (varray/gather rs [5 6 7]))
+
+  (varray/slice vag)
   # =>
   @[6 7 8]
 
