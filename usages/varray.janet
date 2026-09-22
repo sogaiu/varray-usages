@@ -2,107 +2,49 @@
 
 (comment
 
-  (def names ["Cherry" "Lime" "Durian" "Bananas" "Apple"])
+  (def va (varray/new :int32 8))
 
-  names
+  (varray/slice va)
   # =>
-  ["Cherry" "Lime" "Durian" "Bananas" "Apple"]
+  @[0 0 0 0 0 0 0 0]
 
-  (type names)
+  (varray/length va)
   # =>
-  :tuple
+  8
 
-  )
+  (def va-one (varray/add va 1))
 
-(comment
-
-  (def numbers [22 5 97 12 1])
-
-  numbers
+  (varray/slice va-one)
   # =>
-  [22 5 97 12 1]
+  @[1 1 1 1 1 1 1 1]
 
-  (type (varray/from :uint32 numbers))
+  (def va-two (varray/add va-one va-one))
+
+  (varray/slice va-two)
   # =>
-  :va/view
+  @[2 2 2 2 2 2 2 2]
 
-  (varray/slice (varray/from :uint32 numbers))
+  (varray/sum va-two)
   # =>
-  @[22 5 97 12 1]
+  16
 
-  (type (varray/range :int32 10))
+  (def rs (varray/running-sum va-one))
+
+  (varray/slice rs)
   # =>
-  :va/view
+  @[1 2 3 4 5 6 7 8]
 
-  (varray/slice (varray/range :int32 10))
+  (def sr (varray/reverse rs))
+
+  (varray/slice sr)
   # =>
-  @[0 1 2 3 4 5 6 7 8 9]
+  @[8 7 6 5 4 3 2 1]
 
-  )
+  (def va-right (varray/new :int32 3 5 rs))
 
-(comment
-
-  (def sales (varray/from :uint32 [22 5 97 12 1]))
-
-  (varray/slice sales)
+  (varray/slice va-right)
   # =>
-  @[22 5 97 12 1]
-
-  (def order (varray/grade sales))
-
-  (varray/slice order)
-  # =>
-  @[4 1 3 0 2]
-
-  )
-
-(comment
-
-  (varray/slice (varray/le 5 sales))
-  # =>
-  @[1 1 1 1 0]
-
-  (varray/slice (varray/lt sales 50))
-  # =>
-  @[1 1 0 1 1]
-
-  (def mid (varray/minimum (varray/le 5 sales)
-                           (varray/lt sales 50)))
-  (varray/slice mid)
-  # =>
-  @[1 1 0 1 0]
-
-  )
-
-(comment
-
-  (varray/slice (varray/gather sales order))
-  # =>
-  @[1 5 12 22 97]
-
-  (map |(in names $) (varray/slice order))
-  # =>
-  @["Apple" "Lime" "Bananas" "Cherry" "Durian"]
-
-  )
-
-(comment
-
-  (varray/sum mid)
-  # =>
-  3
-
-  (varray/slice (varray/compress sales mid))
-  # =>
-  @[22 5 12]
-
-  (varray/slice (varray/compress sales (varray/sub 1 mid)))
-  # =>
-  @[97 1]
-
-  (map |(in names $) (varray/slice (varray/where mid)))
-  # =>
-  @["Cherry" "Lime" "Bananas"]
+  @[6 7 8]
 
   )
 
